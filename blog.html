@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Vlog 🎥 • Nosso Cantinho</title>
+
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/blog.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="index.html">
+          <span class="brand-dot"></span>
+          <span>Nosso Cantinho</span>
+        </a>
+        <nav class="links">
+          <a class="link" href="index.html">Início</a>
+          <a class="link" href="viagens.html">Viagens</a>
+          <a class="link" href="blog.html">Vlogs</a>
+          <a class="link" href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="b-hero">
+      <div>
+        <h1 class="b-title">Vlogs <span class="grad">🎥</span></h1>
+      </div>
+    </section>
+
+    <section class="b-grid" id="postsGrid"></section>
+
+    <div class="b-empty" id="emptyState">
+      <div class="card pad">
+        <b>Nenhum post ainda</b>
+        <div class="small">Publique um vídeo pelo Admin e ele aparece aqui.</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL PLAYER -->
+  <div class="b-modal" id="videoModal">
+    <div class="b-sheet">
+      <div class="b-top">
+        <div>
+          <div class="small" id="mCaption"></div>
+          <h2 class="b-h2" id="mTitle">—</h2>
+        </div>
+        <button class="btn ghost" id="mClose" type="button">Fechar</button>
+      </div>
+      <div class="b-player" id="mPlayer"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/blog.js"></script>
+</body>
+</html>

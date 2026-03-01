@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin • Nosso Cantinho</title>
+
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <style>
+    /* ===== Admin UI (clean / branco-rosa) ===== */
+    .admin-wrap{max-width:1100px;margin:0 auto;padding:22px}
+    .admin-top{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .admin-title{display:flex;align-items:center;gap:10px}
+    .admin-title h1{margin:0;font-size:20px}
+    .admin-title .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,45,85,.18);
+      background: rgba(255,45,85,.06);
+      color:#7a1e3a;font-size:12px;font-weight:800
+    }
+    .dot{width:9px;height:9px;border-radius:999px;background:linear-gradient(135deg,var(--pink),var(--hot),var(--red));box-shadow:0 0 0 6px rgba(255,45,85,.10)}
+    .admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+    .tabs{
+      display:flex;gap:8px;flex-wrap:wrap;
+      margin: 10px 0 14px;
+    }
+    .tab{
+      padding:10px 12px;border-radius:999px;cursor:pointer;
+      border:1px solid rgba(0,0,0,.08);background:#fff;
+      box-shadow: var(--shadow2);
+      font-size:14px;color:var(--muted)
+    }
+    .tab.active{
+      border-color: rgba(255,45,85,.22);
+      background: rgba(255,45,85,.08);
+      color:#4b0f21;font-weight:900
+    }
+
+    .grid-admin{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 980px){ .grid-admin{grid-template-columns:1fr} }
+
+    .panel{padding:16px}
+    .panel h2{margin:0 0 10px;font-size:16px}
+    .panel .sub{margin-top:-6px;margin-bottom:12px;color:var(--muted);font-size:12px}
+
+    .field{display:grid;gap:6px;margin-top:10px}
+    .label{font-size:12px;color:var(--muted);font-weight:800}
+    .input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      outline:none;
+      background:#fff;
+      box-shadow: var(--shadow2);
+      font-family: var(--font);
+    }
+    textarea{min-height:96px;resize:vertical}
+
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 640px){ .row2{grid-template-columns:1fr} }
+
+    .helper{font-size:12px;color:var(--muted);margin-top:6px}
+    .divider{height:1px;background:rgba(0,0,0,.06);margin:14px 0}
+
+    .preview{
+      border:1px dashed rgba(255,45,85,.30);
+      background: rgba(255,45,85,.04);
+      border-radius: 16px;
+      overflow:hidden;
+      height: 220px;
+      display:grid;
+      place-items:center;
+      color:#7a1e3a;
+      font-weight:800;
+      position:relative;
+    }
+    .preview img{
+      width:100%;height:100%;object-fit:cover;display:block;
+    }
+    .preview .tag{
+      position:absolute;left:10px;top:10px;
+      padding:6px 10px;border-radius:999px;
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(0,0,0,.08);
+      font-size:12px;font-weight:900;color:#4b0f21
+    }
+
+    .toast{
+      position:fixed;right:18px;top:18px;z-index:9999;
+      max-width: min(520px, calc(100vw - 36px));
+      padding: 12px 14px;border-radius: 16px;
+      background:#fff;border:1px solid rgba(0,0,0,.08);
+      box-shadow: var(--shadow2);
+      display:none;
+    }
+    .toast.show{display:block}
+    .toast b{display:block}
+    .toast .t{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+    .danger{border-color: rgba(255,59,48,.35);background: rgba(255,59,48,.06)}
+    .ok{border-color: rgba(34,197,94,.35);background: rgba(34,197,94,.06)}
+
+    /* lista de mídias no admin */
+    .mediaList{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px
+    }
+    @media (max-width: 980px){ .mediaList{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 620px){ .mediaList{grid-template-columns:1fr} }
+    .mediaTile{
+      border-radius:16px;overflow:hidden;
+      border:1px solid rgba(0,0,0,.08);
+      background:#fff;box-shadow: var(--shadow2);
+    }
+    .mediaTile img,.mediaTile video{width:100%;height:180px;object-fit:cover;display:block}
+    .mediaTile .cap{padding:10px 12px}
+    .mediaTile .cap .small{margin-top:6px}
+
+    .hidden{display:none !important}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="index.html">
+          <span class="brand-dot"></span>
+          <span>Nosso Cantinho</span>
+        </a>
+        <div class="admin-actions">
+          <button class="btn ghost" id="checkStorage" type="button">Checar Storage</button>
+          <button class="btn ghost" id="logoutBtn" type="button">Sair</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <div class="admin-top">
+      <div class="admin-title">
+        <span class="dot"></span>
+        <div>
+          <h1>Admin</h1>
+          <div class="pill"><span class="dot"></span><span id="who">—</span></div>
+        </div>
+      </div>
+      <div class="small">Tudo que você alterar aqui aparece no site.</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="home" type="button">Home</button>
+      <button class="tab" data-tab="albums" type="button">Álbuns (Viagens)</button>
+      <button class="tab" data-tab="blog" type="button">Vlogs</button>
+    </div>
+
+    <!-- HOME -->
+    <section id="tab-home" class="grid-admin">
+      <article class="card panel">
+        <h2>Textos da Home</h2>
+        <div class="sub">Edite título, subtítulo, sobre e os mini-cards.</div>
+
+        <div class="field">
+          <div class="label">Título (aceita HTML)</div>
+          <input class="input" id="heroTitle" placeholder='Nós, do nosso jeito. <span class="grad">Sempre.</span>'/>
+        </div>
+
+        <div class="field">
+          <div class="label">Subtítulo</div>
+          <input class="input" id="heroSubtitle" placeholder="Subtítulo"/>
+        </div>
+
+        <div class="field">
+          <div class="label">Sobre a gente</div>
+          <textarea id="about" placeholder="Texto sobre vocês"></textarea>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <div class="label">Data/hora do início (contador flutuante)</div>
+          <input class="input" id="startBR" placeholder="27/10/2025 15:00:10"/>
+          <div class="helper">Formato: <b>DD/MM/AAAA HH:MM:SS</b></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <div class="label">Mini-cards</div>
+          <div class="row2">
+            <input class="input" id="miniTitle1" placeholder="Título 1"/>
+            <input class="input" id="miniText1" placeholder="Texto 1"/>
+          </div>
+          <div class="row2" style="margin-top:10px">
+            <input class="input" id="miniTitle2" placeholder="Título 2"/>
+            <input class="input" id="miniText2" placeholder="Texto 2"/>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <button class="btn primary" id="saveTexts" type="button">Salvar Home</button>
+          <button class="btn ghost" id="fillExample" type="button">Usar exemplo</button>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <h2>Status</h2>
+        <div class="sub">Mostra se o Storage está liberado e se o bucket existe.</div>
+
+        <div id="statusBox" class="box">
+          <b>—</b>
+          <div class="small">Clique em “Checar Storage”.</div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="small">
+          Se aparecer “RLS bloqueando” aqui, o upload vai falhar com:
+          <span class="mono">new row violates row-level security policy</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- ALBUMS -->
+    <section id="tab-albums" class="grid-admin hidden">
+      <article class="card panel">
+        <h2>Criar álbum</h2>
+        <div class="sub">Isso alimenta a página “Viagens”.</div>
+
+        <div class="field">
+          <div class="label">Título do álbum *</div>
+          <input class="input" id="aTitle" placeholder="Ex: Ubatuba 2026"/>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <div class="label">Local</div>
+            <input class="input" id="aLocation" placeholder="Ubatuba - SP"/>
+          </div>
+          <div class="field">
+            <div class="label">Data</div>
+            <input class="input" id="aDate" type="date"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Descrição</div>
+          <textarea id="aDesc" placeholder="Um texto curto sobre essa viagem..."></textarea>
+        </div>
+
+        <div class="field">
+          <div class="label">Capa (imagem)</div>
+          <input class="input" id="aCover" type="file" accept="image/*"/>
+          <div class="helper">Dica: use JPG/PNG até ~5MB.</div>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <button class="btn primary" id="createAlbum" type="button">Criar álbum</button>
+          <button class="btn ghost" id="reload" type="button">Recarregar</button>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <h2>Preview da capa</h2>
+        <div class="sub">Antes de enviar, já dá pra ver como vai ficar.</div>
+        <div class="preview" id="coverPreview">
+          <span class="tag">CAPA</span>
+          Selecione uma imagem
+        </div>
+      </article>
+
+      <article class="card panel" style="grid-column:1 / -1">
+        <h2>Mídias do álbum</h2>
+        <div class="sub">Selecione o álbum, envie fotos/vídeos, e veja a lista.</div>
+
+        <div class="row2">
+          <div class="field">
+            <div class="label">Selecione um álbum</div>
+            <select id="albumSelect"></select>
+
+            <div class="row" style="margin-top:10px">
+  <button class="btn ghost" id="deleteAlbum" type="button">
+    Excluir álbum selecionado
+  </button>
+</div>
+          </div>
+
+          <div class="field">
+            <div class="label">Legenda (opcional)</div>
+            <input class="input" id="caption" placeholder="Ex: pôr do sol..."/>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <div class="label">Arquivos (fotos/vídeos)</div>
+            <input class="input" id="mediaFiles" type="file" multiple accept="image/*,video/*"/>
+          </div>
+
+          <div class="field">
+            <div class="label">Ação</div>
+            <button class="btn primary" id="uploadMedia" type="button">Enviar mídias</button>
+          </div>
+        </div>
+
+        <div id="mediaList" class="mediaList"></div>
+      </article>
+    </section>
+
+    <!-- BLOG -->
+    <section id="tab-blog" class="grid-admin hidden">
+      <article class="card panel">
+        <h2>Novo post (vídeo)</h2>
+        <div class="sub">Posta um vídeo e expira em 30 dias (se você quiser manter essa regra).</div>
+
+        <div class="field">
+          <div class="label">Título *</div>
+          <input class="input" id="bTitle" placeholder="Ex: Um dia especial"/>
+        </div>
+
+        <div class="field">
+          <div class="label">Texto (opcional)</div>
+          <textarea id="bBody" placeholder="Escreva algo para acompanhar o vídeo..."></textarea>
+        </div>
+
+        <div class="field">
+          <div class="label">Vídeo *</div>
+          <input class="input" id="bVideo" type="file" accept="video/*"/>
+        </div>
+
+        <div class="field">
+  <div class="label">Capa do post (imagem)</div>
+  <input class="input" id="bCover" type="file" accept="image/*"/>
+  <div class="helper">A capa é o que aparece no card. O vídeo abre só ao clicar.</div>
+</div>
+
+<div class="field">
+  <div class="label">Legenda da capa (opcional)</div>
+  <input class="input" id="bCoverCaption" placeholder="Ex: nosso fim de tarde 💗"/>
+</div>
+
+        <button class="btn primary" id="createPost" type="button">Publicar</button>
+      </article>
+
+        <article class="card panel">
+  <h2>Posts publicados</h2>
+  <div class="sub">Você pode excluir posts antigos por aqui.</div>
+
+  <div id="blogList" class="blogList"></div>
+</article>
+
+
+    </section>
+
+    <div class="toast" id="toast">
+      <b id="toastTitle">—</b>
+      <div class="t" id="toastText">—</div>
+    </div>
+  </main>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

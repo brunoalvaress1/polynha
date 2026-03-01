@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin • Login</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+<header class="nav">
+  <div class="container">
+    <div class="row">
+      <div class="brand"><span>🔐</span><span>Admin</span></div>
+      <nav class="links">
+        <a class="link" href="index.html">Início</a>
+        <a class="link" href="viagens.html">Viagens</a>
+        <a class="link" href="blog.html">Vlogs</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card" style="padding:16px; max-width:520px; margin:24px auto">
+    <h2 style="margin-top:0">Entrar</h2>
+    <div class="row" style="flex-direction:column">
+      <input id="email" class="input" placeholder="email"/>
+      <input id="pass" class="input" placeholder="senha" type="password"/>
+      <button id="btn" class="btn">Entrar</button>
+      <div class="small">Após logar, você vai para o painel.</div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="js/auth.js"></script>
+</body>
+</html>

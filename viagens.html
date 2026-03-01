@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Viagens ✈️ • Nosso Cantinho</title>
+
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/viagens.css"/>
+
+  <!-- AOS (opcional, mas deixa lindo) -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+  <meta name="theme-color" content="#ff2d55">
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="index.html">
+          <span class="brand-dot"></span>
+          <span>Nosso Cantinho</span>
+        </a>
+
+        <nav class="links">
+          <a class="link" data-page="index.html" href="index.html">Início</a>
+          <a class="link" data-page="viagens.html" href="viagens.html">Viagens</a>
+          <a class="link" data-page="blog.html" href="blog.html">Vlogs</a>
+          <a class="link" data-page="admin.html" href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="v-hero" data-aos="fade-up">
+      <div>
+        <h1 class="v-title">Viagens & Álbum de Memórias <span class="grad">✈️</span></h1>
+      </div>
+
+      <div class="v-actions">
+        <input id="search" class="v-search" placeholder="Buscar por lugar ou título..." />
+        <select id="sort" class="v-select">
+          <option value="new">Mais recentes</option>
+          <option value="old">Mais antigas</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="v-grid" id="albumsGrid"></section>
+
+    <div class="v-empty" id="emptyState">
+      <div class="card pad">
+        <b>Nenhum álbum por aqui ainda</b>
+        <div class="small">Crie um álbum no Admin e ele vai aparecer aqui automaticamente.</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL DO ÁLBUM -->
+  <div class="v-modal" id="albumModal" aria-hidden="true">
+    <div class="v-modal__sheet">
+      <div class="v-modal__top">
+        <div>
+          <div class="v-modal__kicker" id="modalKicker">—</div>
+          <h2 class="v-modal__title" id="modalTitle">—</h2>
+        </div>
+        <div class="v-modal__topActions">
+          <button class="btn ghost" id="modalClose" type="button">Fechar</button>
+        </div>
+      </div>
+
+      <div class="v-modal__meta" id="modalMeta">—</div>
+
+      <div class="v-masonry" id="modalMasonry"></div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="modal">
+      <div class="top">
+        <div class="small" id="lbCaption"></div>
+        <button class="btn ghost" id="lbClose" type="button">Fechar</button>
+      </div>
+      <div class="content" id="lbContent"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script type="module" src="js/viagens.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Nós ❤️</title>
+
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <meta name="theme-color" content="#ff2d55">
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="index.html">
+          <span class="brand-dot"></span>
+          <span id="brandTitle">Nosso Cantinho</span>
+          <span class="badge" id="sinceBadge">desde …</span>
+        </a>
+
+        <nav class="links">
+          <a class="link" data-page="index.html" href="index.html">Início</a>
+          <a class="link" data-page="viagens.html" href="viagens.html">Viagens</a>
+          <a class="link" data-page="blog.html" href="blog.html">Vlogs</a>
+          <a class="link" data-page="login.html" href="login.html">Admin</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="card hero" id="hero" data-aos="fade-up">
+      <div class="hero-inner">
+        <div>
+          <h1 class="h1" id="heroTitle">Nós, do nosso jeito. <span class="grad">Sempre.</span></h1>
+          <p class="p" id="heroSubtitle">Um espaço para guardar memórias, viagens e vídeos especiais — bonito, leve e nosso.</p>
+
+          <!-- contador único -->
+          <!-- CONTADOR FLUTUANTE -->
+<div class="floating-counter" id="floatingCounter" aria-live="polite">
+  <span class="dot"></span>
+  <span id="counterText">Carregando…</span>
+</div>
+
+          <div class="row" style="margin-top:14px" data-aos="fade-up" data-aos-delay="120">
+            <a class="btn primary" href="viagens.html">Ver viagens ✈️</a>
+            <a class="btn ghost" href="blog.html">Ver Vlogs 🎥</a>
+          </div>
+
+          <div class="mini-row" data-aos="fade-up" data-aos-delay="160">
+            <div class="mini-card">
+              <div class="mini-ico">💌</div>
+              <div>
+                <b id="miniTitle1">Carta do dia</b>
+                <div class="small" id="miniText1">“Te escolher é fácil.”</div>
+              </div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-ico">📍</div>
+              <div>
+                <b id="miniTitle2">Próximo destino</b>
+                <div class="small" id="miniText2">“Pra onde a gente vai?”</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MIDIA -->
+        <div data-aos="fade-up" data-aos-delay="80">
+          <div class="section-head">
+            <div>
+              <div class="small">Seleção do álbum “Home”</div>
+              <div style="font-weight:800">Momentos em destaque</div>
+            </div>
+            <button class="btn ghost" id="openMemories" type="button">Tela cheia</button>
+          </div>
+
+          <div class="carousel-wrap">
+            <div class="swiper" id="homeSwiper">
+              <div class="swiper-wrapper" id="swiperSlides"></div>
+            </div>
+
+            <div class="carousel-controls">
+              <button class="btn ghost" id="prevSlide" type="button">←</button>
+              <div class="small">arraste para o lado</div>
+              <button class="btn ghost" id="nextSlide" type="button">→</button>
+            </div>
+          </div><br><br>
+
+          <div class="stats-strip" data-aos="fade-up" data-aos-delay="120">
+           
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section">
+      <article class="card pad" data-aos="fade-up">
+        <div class="section-head">
+          <h2 class="h2">Sobre a gente</h2>
+        </div>
+        <p class="p" id="aboutText">Carregando…</p>
+        <div class="hr"></div>
+        <div class="small">Dica: crie um álbum chamado <b>Home</b> no Admin para preencher as fotos.</div>
+      </article>
+    </section>
+
+    <div class="footer">Feito com ❤️</div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="modal">
+      <div class="top">
+        <div class="small" id="lbCaption"></div>
+        <button class="btn ghost" id="lbClose" type="button">Fechar</button>
+      </div>
+      <div class="content" id="lbContent"></div>
+    </div>
+  </div>
+
+  <!-- libs -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script type="module" src="js/index.js"></script>
+</body>
+</html>
